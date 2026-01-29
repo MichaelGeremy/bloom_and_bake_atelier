@@ -1,313 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloom & Bake Atelier | Tanzanite Lux Events</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        /* Custom Emerald Velvet Texture */
-        .velvet-bg {
-            background: 
-                radial-gradient(ellipse at 20% 30%, rgba(20, 60, 40, 0.8) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(10, 40, 30, 0.6) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(30, 80, 60, 0.4) 0%, transparent 70%),
-                linear-gradient(135deg, #0a1812 0%, #143328 25%, #1a3d2e 50%, #143328 75%, #0a1812 100%);
-            background-size: 200% 200%;
-            animation: velvetShift 15s ease infinite;
-        }
-
-        @keyframes velvetShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* Noise Texture Overlay for Velvet Effect */
-        .velvet-overlay {
-            position: relative;
-        }
-        .velvet-overlay::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-            pointer-events: none;
-            opacity: 0.4;
-            mix-blend-mode: overlay;
-        }
-
-        /* Gold Metallic Text Effect */
-        .gold-text {
-            background: linear-gradient(
-                to bottom,
-                #ffecb3 0%,
-                #ffd700 20%,
-                #d4af37 40%,
-                #ffd700 60%,
-                #ffecb3 80%,
-                #fff5cc 100%
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) 
-                    drop-shadow(0 2px 6px rgba(184, 134, 11, 0.8))
-                    drop-shadow(0 0 15px rgba(255, 236, 179, 0.4));
-        }
-
-        .gold-border {
-            border: 2px solid transparent;
-            background: linear-gradient(#143328, #143328) padding-box,
-                        linear-gradient(to bottom, #d4af37, #ffecb3, #b8860b) border-box;
-        }
-
-        /* CT Monogram Styling */
-        .monogram {
-            font-family: 'Cinzel', serif;
-            font-weight: 800;
-            position: relative;
-            display: inline-block;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-        .monogram-c {
-            position: relative;
-            z-index: 1;
-        }
-        .monogram-t {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-35%, -50%);
-            z-index: 2;
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 640px) {
-            .monogram {
-                text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-            }
-            .gold-line {
-                width: 50%;
-            }
-        }
-
-        /* Elegant Animations */
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-500 { animation-delay: 0.5s; }
-
-        /* Button Hover Effects */
-        .luxury-btn {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .luxury-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,236,179,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .luxury-btn:hover::before {
-            left: 100%;
-        }
-        .luxury-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        /* QR Code Styling */
-        .qr-container {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            border: 3px solid #d4af37;
-        }
-
-        /* Decorative Lines */
-        .gold-line {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #d4af37, #ffecb3, #d4af37, transparent);
-            margin: 1.5rem auto;
-            width: 60%;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a1812;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #d4af37, #b8860b);
-            border-radius: 4px;
-        }
-    </style>
+    <title>Tanzanite Lux Events | Christine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="velvet-bg velvet-overlay min-h-screen text-amber-100 overflow-x-hidden">
 
-    <!-- Main Container -->
-    <div class="relative z-10 container mx-auto px-4 sm:px-6 py-6 sm:py-8 min-h-screen flex flex-col items-center justify-center max-w-2xl">
+<body>
+    <div class="background-overlay"></div>
 
-        <!-- Logo Section -->
-        <div class="fade-in-up text-center mb-6 sm:mb-8">
-            <div class="monogram text-5xl sm:text-6xl md:text-7xl gold-text mb-2">
-                <span class="monogram-c">C</span>
-                <span class="monogram-t">T</span>
+    <div class="container">
+        <!-- Official Logo Header -->
+        <header class="main-header">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Tanzanite Lux Events Logo" class="brand-logo">
             </div>
-        </div>
+            <h1>Christine</h1>
+            <p class="main-subtitle">Curated Luxury & Sweet Moments</p>
+        </header>
 
-        <!-- Main Brand Card -->
-        <div class="fade-in-up delay-100 w-full bg-gradient-to-b from-[#143328]/80 to-[#0a1812]/90 backdrop-blur-sm rounded-full aspect-square max-w-[90vw] sm:max-w-md mx-auto border-4 border-[#d4af37]/50 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center p-6 sm:p-8 mb-8">
-            <!-- Inner decorative ring -->
-            <div class="absolute inset-3 sm:inset-4 rounded-full border-2 border-[#d4af37]/30 pointer-events-none"></div>
-            <div class="absolute inset-6 sm:inset-8 rounded-full border border-[#d4af37]/20 pointer-events-none"></div>
+        <!-- Business Content -->
+        <div class="content-grid">
+            <!-- Tanzanite Lux Events Section -->
+            <section class="business-card glass">
+                <h2 class="gold-text">Tanzanite Lux Events</h2>
+                <div class="divider"></div>
+                <p class="tagline italic">"Curated Luxury Experiences, Bespoke Styling, Memories"</p>
 
-            <h1 class="text-xl sm:text-2xl md:text-3xl font-serif tracking-widest text-center gold-text mb-2" style="font-family: 'Cinzel', serif;">
-                BLOOM & BAKE<br/>
-                <span class="text-lg sm:text-xl md:text-2xl block mt-1">ATELIER</span>
-            </h1>
+                <ul class="services-list modern-list">
+                    <li><i class="fas fa-church"></i> Wedding</li>
+                    <li><i class="fas fa-couch"></i> Room Decor</li>
+                    <li><i class="fas fa-heart"></i> Proposals</li>
+                    <li><i class="fas fa-birthday-cake"></i> Birthday Decor</li>
+                    <li><i class="fas fa-building"></i> Corporate Decor</li>
+                    <li><i class="fas fa-basket-shopping"></i> Picnics</li>
+                    <li><i class="fas fa-users"></i> Traditional Events</li>
+                </ul>
 
-            <div class="gold-line"></div>
-
-            <p class="text-center text-amber-100/80 text-xs sm:text-sm md:text-base italic px-4 sm:px-6 mb-4" style="font-family: 'Playfair Display', serif;">
-                "Every bloom blossoms, every flavor melts<br/>& every moment lasts."
-            </p>
-
-            <div class="gold-line w-1/3"></div>
-
-            <p class="text-[#d4af37] text-base sm:text-lg font-semibold tracking-widest mt-2">0729 338 691</p>
-        </div>
-
-        <!-- Services Grid -->
-        <div class="fade-in-up delay-200 w-full grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
-            <div class="luxury-btn bg-gradient-to-br from-[#143328]/60 to-[#0a1812]/80 border border-[#d4af37]/30 rounded-lg p-3 sm:p-4 text-center backdrop-blur-sm cursor-pointer">
-                <span class="text-[#ffecb3] font-serif text-xs sm:text-sm tracking-wider">Cakes & Desserts</span>
-            </div>
-            <div class="luxury-btn bg-gradient-to-br from-[#143328]/60 to-[#0a1812]/80 border border-[#d4af37]/30 rounded-lg p-3 sm:p-4 text-center backdrop-blur-sm cursor-pointer">
-                <span class="text-[#ffecb3] font-serif text-xs sm:text-sm tracking-wider">Dessert Tables</span>
-            </div>
-            <div class="luxury-btn bg-gradient-to-br from-[#143328]/60 to-[#0a1812]/80 border border-[#d4af37]/30 rounded-lg p-3 sm:p-4 text-center backdrop-blur-sm cursor-pointer">
-                <span class="text-[#ffecb3] font-serif text-xs sm:text-sm tracking-wider">Cocktails & Mocktails</span>
-            </div>
-            <div class="luxury-btn bg-gradient-to-br from-[#143328]/60 to-[#0a1812]/80 border border-[#d4af37]/30 rounded-lg p-3 sm:p-4 text-center backdrop-blur-sm cursor-pointer">
-                <span class="text-[#ffecb3] font-serif text-xs sm:text-sm tracking-wider">Flower & Money Bouquets</span>
-            </div>
-        </div>
-
-        <!-- QR Code Section -->
-        <div class="fade-in-up delay-300 flex flex-col items-center mb-6 sm:mb-8">
-            <div class="qr-container mb-3 sm:mb-4 relative">
-                <div id="qrcode"></div>
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-                    <div class="monogram text-3xl sm:text-4xl text-[#143328]">
-                        <span class="monogram-c">C</span>
-                        <span class="monogram-t">T</span>
+                <div class="social-wrapper">
+                    <p class="directive">Click to follow us</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/tanzanite_luxe_events" target="_blank" class="social-link"
+                            title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@tanzanite.luxe.events" target="_blank" class="social-link"
+                            title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/254729338691" class="social-link" title="WhatsApp"><i
+                                class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-            </div>
-            <p class="text-[#d4af37]/80 text-xs tracking-widest uppercase">Scan to Save Contact</p>
+
+                <div class="qr-cta">
+                    <div class="qr-frame">
+                        <img src="whatsapp_qr.png" alt="WhatsApp QR Code" class="whatsapp-qr">
+                    </div>
+                    <a href="https://wa.me/254729338691" class="btn btn-gold">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </section>
+
+            <!-- Bloom & Bake Section -->
+            <section class="business-card glass">
+                <h2 class="gold-text">Bloom & Bake Atelier</h2>
+                <div class="divider"></div>
+                <p class="tagline">"Where every petal pops and Every bite melts 😋😋🤤💐"</p>
+
+                <ul class="services-list">
+                    <li><i class="fas fa-cake-candles"></i> Custom Luxury Cakes</li>
+                    <li><i class="fas fa-utensils"></i> Dessert Table Styling</li>
+                    <li><i class="fas fa-martini-glass-citrus"></i> Cocktails & Mocktails</li>
+                    <li><i class="fas fa-gift"></i> Flower & Money Bouquets</li>
+                </ul>
+
+                <div class="social-wrapper">
+                    <p class="directive">Click to follow us</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/bloom_and_bake_atelier" target="_blank" class="social-link"
+                            title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@bloom_bakeatelier" target="_blank" class="social-link"
+                            title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/254729338691" class="social-link" title="WhatsApp"><i
+                                class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <div class="handle-display">@bloom_and_bake_atelier</div>
+                </div>
+            </section>
         </div>
 
-        <!-- Contact Actions -->
-        <div class="fade-in-up delay-300 w-full space-y-3 sm:space-y-4 px-4 mb-6 sm:mb-8">
-            <a href="tel:+254729338691" class="luxury-btn block w-full bg-gradient-to-r from-[#b8860b] via-[#d4af37] to-[#b8860b] text-[#0a1812] font-bold py-3 sm:py-4 rounded-full text-center tracking-widest uppercase text-xs sm:text-sm shadow-lg border border-[#ffecb3]/50">
-                Call Now
-            </a>
-            
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-                <a href="https://instagram.com/bloom_and_bake_atelier" target="_blank" class="luxury-btn bg-gradient-to-br from-[#143328] to-[#0a1812] border border-[#d4af37]/50 text-[#d4af37] py-2.5 sm:py-3 rounded-full text-center text-xs sm:text-sm font-serif tracking-wider flex items-center justify-center gap-1 sm:gap-2">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    <span class="hidden sm:inline">Instagram</span>
-                    <span class="sm:hidden">IG</span>
-                </a>
-                <a href="https://tiktok.com/@bloom_bakeatelier" target="_blank" class="luxury-btn bg-gradient-to-br from-[#143328] to-[#0a1812] border border-[#d4af37]/50 text-[#d4af37] py-2.5 sm:py-3 rounded-full text-center text-xs sm:text-sm font-serif tracking-wider flex items-center justify-center gap-1 sm:gap-2">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                    TikTok
-                </a>
-            </div>
-        </div>
-
-        <!-- Sister Brand -->
-        <div class="fade-in-up delay-500 text-center pb-6 sm:pb-8">
-            <div class="gold-line w-1/4 mb-4 sm:mb-6"></div>
-            <p class="text-[#d4af37]/60 text-xs tracking-[0.3em] uppercase mb-2" style="font-family: 'Cinzel', serif;">A Division of</p>
-            <h2 class="text-lg sm:text-xl md:text-2xl gold-text font-serif tracking-wider" style="font-family: 'Cinzel', serif;">
-                TANZANITE LUX<br/>
-                <span class="text-base sm:text-lg">EVENTS</span>
-            </h2>
-            <p class="text-[#ffecb3]/60 text-xs sm:text-sm italic mt-2 font-serif px-4">Curated Luxury Experiences, Timeless Memories</p>
-        </div>
-
+        <footer class="footer">
+            <p>&copy; 2026 Tanzanite Lux Events</p>
+            <p>Designed for Luxury</p>
+        </footer>
     </div>
-
-    <!-- Floating Particles Effect -->
-    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
-
-    <script>
-        // Generate QR Code
-        const qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "https://wa.me/254729338691",
-            width: 128,
-            height: 128,
-            colorDark : "#0a1812",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
-
-        // Add sparkle particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'absolute w-1 h-1 bg-[#d4af37] rounded-full opacity-0';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animation = `fadeInUp ${2 + Math.random() * 3}s ease-out forwards`;
-            particle.style.boxShadow = '0 0 10px #d4af37';
-            document.getElementById('particles').appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 5000);
-        }
-
-        setInterval(createParticle, 800);
-
-        // Smooth reveal on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
-    </script>
 </body>
+
 </html>
